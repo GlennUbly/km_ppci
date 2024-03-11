@@ -730,7 +730,7 @@ if show == 'Map of potential sites' :
     #kent_prov = Image.open(os.getcwd()+'/kent_prov.png')
     st.write("The sites considered in addition to the 2 London sites and "+
              "the 2 current EKUHFT sites are the seven in the area with "+
-             "an existing adult criticalcare unit.")
+             "an existing adult critical care unit.")
     fig, ax = get_map_of_sites(km_lsoa_gdf, km_prov_gdf)
     st.pyplot(fig)
     #st.image(kent_prov)
