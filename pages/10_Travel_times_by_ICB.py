@@ -723,7 +723,7 @@ st.write("Nationally, based on Routino data, we see a mean travel time of "+
          f"and a median of {activity_time_dist_df['time_min'].median():.0f} minutes.")
 
 time_elapsed = time.time()
-st.write('Time elapsed '+str(round(time_elapsed - start_full,1)) + ' seconds')
+# st.write('Time elapsed '+str(round(time_elapsed - start_full,1)) + ' seconds')
 # Display summary of traval times
 st.dataframe(activity_time_dist_df.describe([0, 0.25, 0.5, 0.75, 0.95]).round().astype(int))
 
@@ -732,7 +732,7 @@ st.markdown("We map the travel times based on Routino data for the patient "+
             "travel time for each ICB")
 
 time_elapsed = time.time()
-st.write('Time elapsed '+str(round(time_elapsed - start_full,1)) + ' seconds')
+# st.write('Time elapsed '+str(round(time_elapsed - start_full,1)) + ' seconds')
 # Plot the national map
 fig, ax = plot_national_icb_prov(icb_to_plot, prov_to_plot)
 st.pyplot(fig)
@@ -764,7 +764,7 @@ with st.expander("Ranked travel time and population density by ICB",
     st.dataframe(df_rank_to_show)
 
 time_elapsed = time.time()
-st.write('Time elapsed '+str(round(time_elapsed - start_full,1)) + ' seconds')
+# st.write('Time elapsed '+str(round(time_elapsed - start_full,1)) + ' seconds')
 # Plot scatter plot for correaltion of population density and mean travel times
 fig = plot_density_times(icb_density_times_gdf)
 st.bokeh_chart(fig, use_container_width=True)
@@ -776,4 +776,4 @@ st.write("We observe that Kent and Medway ICB ranks 37 out of 42 for PPCI travel
 
 
 end_full = time.time()
-st.write('Total time to run '+str(round(end_full - start_full,1)) + ' seconds')
+# st.write('Total time to run '+str(round(end_full - start_full,1)) + ' seconds')
