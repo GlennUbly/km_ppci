@@ -12,7 +12,7 @@ st.markdown("#### A comparison of possible configurations of sites offering "+
             "this service, looking at the potential impact on travel times "+
             "and distances")
 
-st.markdown('Further details to add')
+# st.markdown('Further details to add')
 
 with st.expander('Resources used:',
                  expanded=False) :
