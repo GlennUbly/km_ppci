@@ -730,7 +730,7 @@ if show == 'Map of potential sites' :
 
     #kent_prov = Image.open(os.getcwd()+'/kent_prov.png')
     st.write("The sites considered in addition to the 2 London sites and "+
-             "the 2 current EKUHFT sites are the seven in the area with "+
+             "the current EKUHFT site are the six in the area with "+
              "an existing adult critical care unit.")
     fig, ax = get_map_of_sites(km_lsoa_gdf, km_prov_gdf)
     st.pyplot(fig)
@@ -749,14 +749,14 @@ if show == 'Travel times by LSOA' :
     #kent_map = Image.open(os.getcwd()+'/km_current_map.png')
     st.write('The current travel times are distributed geographically as '+
               'follows, with almost all patients travelling to the 2 London '+
-              'sites and the 2 EKUHFT sites shown')
+              'sites and the EKUHFT site shown')
     fig, ax = plot_lsoa_times_gdf(km_lsoa_gdf, sites_orig, [], nat_median)
     st.pyplot(fig)
     #st.image(kent_map)
 
 if show == 'Travel times compared to national median' :
     #kent_threshold_map = Image.open(os.getcwd()+'/km_current_threshold_map.png')
-    st.write('We see only the areas close to the EKUHFT sites with travel times '+
+    st.write('We see only the areas close to the EKUHFT site with travel times '+
              'less than the national median')
     fig, ax = plot_lsoa_time_threshold_gdf(km_lsoa_gdf, sites_orig, [], nat_median)
     st.pyplot(fig)
