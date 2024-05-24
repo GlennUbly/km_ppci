@@ -737,7 +737,7 @@ st.markdown("These plots show the current national travel times, with the "+
             "travel times in the case a new site is added.")
 st.markdown("Select a provider site or sites from the select box in the "+
             "sidebar to consider as an option alongside the "+
-            "existing sites at Queen Elizabeth The Queen Mother Hospital, "+
+            "existing site at "+
             "William Harvey Hospital, and the 2 London sites. ")
 
 # Select box in sidebar
