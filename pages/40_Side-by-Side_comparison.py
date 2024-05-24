@@ -697,7 +697,8 @@ filename_routino = 'actuals_from_to_routino.csv'
 nat_median = get_national_median(filename_routino)
 #icb_density_times_gdf = national_activity_to_plot(national_activity_prov, icb_time_df, icb_gdf, prov_gdf, threshold=50)[1].copy()
 #icb_density_times_rank_df = get_density_times_icb_rank_df(icb_density_times_gdf).sort_values(by=['Travel_time_rank_asc'], ascending=False)
-sites_orig = ['RVV01', 'RVV09', 'RJ122', 'RJZ01']
+# Remove site RVV09 following review - most likely a provider data error
+sites_orig = ['RVV01', 'RJ122', 'RJZ01']
 km_prov_filename = 'KM_Sites_Geog.csv'
 km_prov_gdf = get_prov_gdf(km_prov_filename)
 dict_sitecode_sitename = get_dict_sitecode_sitename(km_prov_gdf)
@@ -1207,5 +1208,5 @@ else :
 
 
 end_full = time.time()
-st.write('Total time to run '+str(round(end_full - start_full,1)) + ' seconds')
+# st.write('Total time to run '+str(round(end_full - start_full,1)) + ' seconds')
 
