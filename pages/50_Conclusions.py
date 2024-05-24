@@ -36,7 +36,7 @@ if site_count == 'One' :
                 'the addition of RWF03: The Maidstone Hospital')
                 
     st.markdown('* Median travel time for Kent and Medway patients reduced '+
-                'from 32 to 18 minutes.')
+                'from 34 to 21 minutes.')
     
     rwf03_kde = Image.open(os.getcwd()+'/RWF03_kde.png')
     st.image(rwf03_kde)
@@ -44,24 +44,24 @@ if site_count == 'One' :
     rwf03_times = Image.open(os.getcwd()+'/RWF03_times.png')
     st.image(rwf03_times)
     
-    st.markdown('* Travel times would be reduced for 67% of the Kent and '+
+    st.markdown('* Travel times would be reduced for 53% of the Kent and '+
                 'Medway patients, based on historic activity.')
     
     rwf03_impact = Image.open(os.getcwd()+'/RWF03_impact.png')
     st.image(rwf03_impact)
     
     st.markdown('* Travel times would be reduced to less than the national '+
-                'median for 65% of the Kent and Medway patients, '+
+                'median for 23% of the Kent and Medway patients, '+
                 'based on historic activity.')
     
     rwf03_threshold = Image.open(os.getcwd()+'/RWF03_threshold.png')
     st.image(rwf03_threshold)
     
-    st.markdown('* Mean travel time reduction would be 19 minutes.')
+    st.markdown('* Mean travel time reduction would be 15 minutes.')
     
-    st.markdown('* Total travel distance (1 way) reduction would be 36,612 '+
+    st.markdown('* Total travel distance (1 way) reduction would be 28,673 '+
                 'km for the period of actuals considered.')
-    st.markdown('* The new maximum travel time would be 35 minutes.')
+    st.markdown('* The new maximum travel time would be 56 minutes.')
     
 if site_count == 'Two' :
     st.markdown('### The optimal configuration with 2 additional sites is '+
@@ -69,7 +69,7 @@ if site_count == 'Two' :
                 'Kent & Canterbury Hospital')
                 
     st.markdown('* Median travel time for Kent and Medway patients reduced '+
-             'from 32 to 16 minutes.')
+             'from 34 to 17 minutes.')
     
     RWF03_RVVKC_kde = Image.open(os.getcwd()+'/RWF03-RVVKC_kde.png')
     st.image(RWF03_RVVKC_kde)
@@ -77,21 +77,21 @@ if site_count == 'Two' :
     RWF03_RVVKC_times = Image.open(os.getcwd()+'/RWF03-RVVKC_times.png')
     st.image(RWF03_RVVKC_times)
     
-    st.markdown('* Travel times would be reduced for 78% of the Kent and '+
+    st.markdown('* Travel times would be reduced for 80% of the Kent and '+
                 'Medway patients, based on historic activity.')
     
     RWF03_RVVKC_impact = Image.open(os.getcwd()+'/RWF03-RVVKC_impact.png')
     st.image(RWF03_RVVKC_impact)
     
     st.markdown('* Travel times would be reduced to less than the national '+
-                'median for 48% of the Kent and Medway patients, '+
+                'median for 35% of the Kent and Medway patients, '+
                 'based on historic activity.')
     
     RWF03_RVVKC_threshold = Image.open(os.getcwd()+'/RWF03-RVVKC_threshold.png')
     st.image(RWF03_RVVKC_threshold)
     
-    st.markdown('* Mean travel time reduction would be 21 minutes.')
+    st.markdown('* Mean travel time reduction would be 20 minutes.')
     
-    st.markdown('* Total travel distance (1 way) reduction would be 39,560 '+
+    st.markdown('* Total travel distance (1 way) reduction would be 38,927 '+
                 'km for the period of actuals considered.')
     st.markdown('* The new maximum travel time would be 35 minutes.')
