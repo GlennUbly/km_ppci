@@ -27,9 +27,9 @@ with st.expander('Resources used:',
             geopandas==0.9.0
             matplotlib==3.5.1
             numpy==1.22.3
-            pandas<2.0
+            pandas==1.4.2
             Pillow==9.2.0
             scipy==1.6.2
             seaborn==0.11.2
-            streamlit==1.11.1
+            streamlit==1.31.1
             """)
