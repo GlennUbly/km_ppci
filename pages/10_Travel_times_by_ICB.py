@@ -540,10 +540,8 @@ def get_km_all_journeys_df(km_actuals_time_dist_df, km_lsoa_gdf):
                                   how='left',
                                   left_on=['from_postcode'],
                                   right_on=['lsoa11cd']        
-                                 ).drop(columns=['geometry',
-                                                 'Provider_Site_Postcode',
+                                 ).drop(columns=['Provider_Site_Postcode',
                                                  'Patient_LSOA','objectid',
-                                                 'lsoa11cd',
                                                  'lsoa11nm'])
     return km_all_journeys_df
 
