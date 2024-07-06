@@ -739,7 +739,7 @@ if show == 'Distribution of travel times' :
     st.write(f'The Kent and Medway median travel time of {km_median:.0f} minutes '+
              f'compares unfavourably with the national median travel time of {nat_median:.0f} minutes. '
              )
-    fig, ax = kde_plot(km_lsoa_gdf, sites_orig, [], nat_median)
+    fig, ax = kde_plot(km_all_journeys_df, sites_orig, [], nat_median)
     st.pyplot(fig)
     #st.image(kent_kde)
 
