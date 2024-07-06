@@ -753,7 +753,7 @@ with col1:
     site_code_list = [dict_sitename_sitecode[site] for site in selected_site_pair1]
 
     # Plot kde plot for this selected set of sites
-    f = kde_plot(km_lsoa_gdf, sites_orig, site_code_list, nat_median)
+    f = kde_plot(km_all_journeys_df, sites_orig, site_code_list, nat_median)
     fig, ax = f
     st.pyplot(fig)
 
@@ -959,7 +959,7 @@ with col2:
     site_code_list = [dict_sitename_sitecode[site] for site in selected_site_pair2]
 
     # Plot kde plot for this selected set of sites
-    f = kde_plot(km_lsoa_gdf, sites_orig, site_code_list, nat_median)
+    f = kde_plot(km_all_journeys_df, sites_orig, site_code_list, nat_median)
     fig, ax = f
     st.pyplot(fig)
 
