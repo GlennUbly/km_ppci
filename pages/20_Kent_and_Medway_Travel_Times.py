@@ -704,7 +704,7 @@ km_lsoa_filename = 'km_lsoa_shapefile.csv'
 km_lsoa_gdf = get_lsoa_gdf(km_lsoa_filename)
 km_actuals_time_dist_df = get_km_actuals_time_dist_df(filename_activity, filename_routino)
 km_median = km_actuals_time_dist_df['time_min'].median()
-#km_all_journeys_df = get_km_all_journeys_df(km_actuals_time_dist_df, km_lsoa_gdf)
+km_all_journeys_df = get_km_all_journeys_df(km_actuals_time_dist_df, km_lsoa_gdf)
 
 ##############################################################################
 #
