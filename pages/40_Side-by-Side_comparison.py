@@ -318,12 +318,12 @@ def get_map_of_sites(km_lsoa_gdf, km_sites_gdf):
 # Input is the km_lsoa_gdf of all K&M LSOAs, the current provider list, the proposed new sites, and the threshold value
 # Use for K&M intro on the current position, and for the additional site plots
 st.cache_data()
-def kde_plot(km_lsoa_gdf, sites_orig, sites_new, nat_median):
+def kde_plot(gdf, sites_orig, sites_new, nat_median):
     cols = ['lsoa11cd','geometry']
     cols_orig = ['time_'+site.lower() for site in sites_orig]
     cols_new = ['time_'+site.lower() for site in sites_new]
-    cols.extend(cols_orig + cols_new)
-    gdf_calculated_min_time = km_lsoa_gdf[cols].copy()
+    cols.extend(['time_min'] + cols_orig + cols_new)
+    gdf_calculated_min_time = gdf[cols].copy()
     gdf_calculated_min_time['orig_min_time'] = gdf_calculated_min_time[cols_orig].min(axis=1)
     gdf_calculated_min_time['new_min_time'] = gdf_calculated_min_time[cols_orig + cols_new].min(axis=1)
     gdf_calculated_min_time['orig_<_nat'] = np.where(gdf_calculated_min_time['orig_min_time'] < nat_median , True , False)
@@ -338,7 +338,7 @@ def kde_plot(km_lsoa_gdf, sites_orig, sites_new, nat_median):
                 fill=True,
                 legend= True
                )
-    plt.axvline(x=gdf_calculated_min_time['orig_min_time'].median(),
+    plt.axvline(x=gdf_calculated_min_time['time_min'].median(),
                 linewidth=2,
                 color='cornflowerblue')
     
@@ -357,7 +357,7 @@ def kde_plot(km_lsoa_gdf, sites_orig, sites_new, nat_median):
                 linewidth=2,
                 color='green')
         ax.set_xlabel('Travel time (mins)')
-        plt.legend(('Current travel times',
+        plt.legend(('Travel times current sites',
                     'Median current travel time',
                     'Travel times with additional sites',
                     'Median with additional sites',
@@ -369,7 +369,7 @@ def kde_plot(km_lsoa_gdf, sites_orig, sites_new, nat_median):
                 linewidth=2,
                 color='green')
         plt.title('Current Kent and Medway PPCI travel times')
-        plt.legend(('Current travel times',
+        plt.legend(('Travel times current sites',
                     'Median current travel time',
                     'National median travel time'),
                    loc='upper right',fontsize=8)
