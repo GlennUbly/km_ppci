@@ -1,6 +1,6 @@
 # Streamlit app for PPCI travel times in Kent and Medway
 # 11/03/2024 GU
-# Page 5 for conclusons on optimal new site configurations 
+# Page 5 for conclusions on optimal new site configurations 
 
 ##############################################################################
 #
