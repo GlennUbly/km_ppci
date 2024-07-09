@@ -386,6 +386,10 @@ def get_dict_sitename_sitecode(sites_df):
     dic = dict(zip(sites_df.Provider_Site_Name, sites_df.Provider_Site_Code))
     return dic
 
+# Function to get dictionary mapping site postcodes to site codes
+def get_dict_postcode_sitecode(sites_df):
+    dic = dict(zip(sites_df.Postcode_Trim, sites_df.Der_Provider_Site_Code))
+    return dic
 
 # Function to return a new LSOA GDF with calculated minimum times for a new site list and threshold comparison
 # Input is the LSOA GeoDataFrame with all times, the list of original sites, the list of new sites, and the national median
