@@ -1,3 +1,4 @@
+
 # Streamlit app for PPCI travel times in Kent and Medway
 # 22/02/2024 GU
 # Page 2 for summary of current K&M travel times
@@ -770,4 +771,3 @@ if show == 'Travel times compared to national median' :
     fig, ax = plot_lsoa_time_threshold_gdf(km_lsoa_gdf, sites_orig, [], nat_median)
     st.pyplot(fig)
     #st.image(kent_threshold_map)
-
