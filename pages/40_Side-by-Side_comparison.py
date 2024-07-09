@@ -388,10 +388,6 @@ def get_dict_sitename_sitecode(sites_df):
     dic = dict(zip(sites_df.Provider_Site_Name, sites_df.Provider_Site_Code))
     return dic
 
-# Function to get dictionary mapping site postcodes to site codes
-def get_dict_postcode_sitecode(sites_df):
-    dic = dict(zip(sites_df.Postcode_Trim, sites_df.Der_Provider_Site_Code))
-    return dic
 
 # Function to return a new LSOA GDF with calculated minimum times for a new site list and threshold comparison
 # Input is the LSOA GeoDataFrame with all times, the list of original sites, the list of new sites, and the national median
@@ -413,12 +409,8 @@ def get_new_min_times_gdf(km_lsoa_gdf, sites_orig, sites_new, threshold):
                                                                          'Change to <= national median',
                                                                 'Remains > national median')
                                                                )
-    # New columns to show 
-    # site_time_new_list = list(gdf_calculated_min_time.columns)[2:2+len(sites_new)+len(sites_orig)]
-    # site_time_orig_list = list(gdf_calculated_min_time.columns)[2:2+len(sites_orig)]
-    # gdf_calculated_min_time['site_of_new_time'] = gdf_calculated_min_time[site_time_new_list].idxmin(axis=1)
-    # gdf_calculated_min_time['closest_site_current'] = gdf_calculated_min_time[site_time_orig_list].idxmin(axis=1)
     return gdf_calculated_min_time
+
 
 # Function to plot the new GDF with the minimum time for the existing and new sites 
 # with colour for each LSOA representing travel time
@@ -703,7 +695,7 @@ filename_routino = 'actuals_from_to_routino.csv'
 nat_median = get_national_median(filename_routino)
 #icb_density_times_gdf = national_activity_to_plot(national_activity_prov, icb_time_df, icb_gdf, prov_gdf, threshold=50)[1].copy()
 #icb_density_times_rank_df = get_density_times_icb_rank_df(icb_density_times_gdf).sort_values(by=['Travel_time_rank_asc'], ascending=False)
-# Remove site RVV09 following review - most likely a provider data error
+# Remove site RVV09 as likely an error in the source data
 sites_orig = ['RVV01', 'RJ122', 'RJZ01']
 km_prov_filename = 'KM_Sites_Geog.csv'
 km_prov_gdf = get_prov_gdf(km_prov_filename)
@@ -1211,8 +1203,6 @@ else :
     pass
 
 
-
-
 end_full = time.time()
-# st.write('Total time to run '+str(round(end_full - start_full,1)) + ' seconds')
+#st.write('Total time to run '+str(round(end_full - start_full,1)) + ' seconds')
 
