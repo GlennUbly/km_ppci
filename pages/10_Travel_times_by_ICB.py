@@ -408,8 +408,8 @@ def get_new_min_times_gdf(km_lsoa_gdf, sites_orig, sites_new, threshold):
     gdf_calculated_min_time['orig_min_time'] = gdf_calculated_min_time[cols_orig].min(axis=1)
     gdf_calculated_min_time['new_min_time'] = gdf_calculated_min_time[cols_orig + cols_new].min(axis=1)
     gdf_calculated_min_time['impact_time'] = gdf_calculated_min_time['new_min_time'] - gdf_calculated_min_time['orig_min_time']
-    gdf_calculated_min_time['orig_<_nat'] = np.where(gdf_calculated_min_time['orig_min_time'] < nat_median , True , False)
-    gdf_calculated_min_time['new_<_nat'] = np.where(gdf_calculated_min_time['new_min_time'] < nat_median , True , False)
+    gdf_calculated_min_time['orig_<_nat'] = np.where(gdf_calculated_min_time['orig_min_time'] < threshold , True , False)
+    gdf_calculated_min_time['new_<_nat'] = np.where(gdf_calculated_min_time['new_min_time'] < threshold , True , False)
     gdf_calculated_min_time['Compare_with_national'] = np.where(gdf_calculated_min_time['orig_<_nat'],
                                                                 'Remains <= national median',
                                                                 np.where(gdf_calculated_min_time['new_<_nat'],
@@ -417,8 +417,8 @@ def get_new_min_times_gdf(km_lsoa_gdf, sites_orig, sites_new, threshold):
                                                                 'Remains > national median')
                                                                )
     # New columns to show 
-    site_time_new_list = list(new_min_times_gdf.columns)[2:2+len(sites_new)+len(sites_orig)]
-    site_time_orig_list = list(new_min_times_gdf.columns)[2:2+len(sites_orig)]
+    site_time_new_list = list(gdf_calculated_min_time.columns)[2:2+len(sites_new)+len(sites_orig)]
+    site_time_orig_list = list(gdf_calculated_min_time.columns)[2:2+len(sites_orig)]
     gdf_calculated_min_time['site_of_new_time'] = gdf_calculated_min_time[site_time_new_list].idxmin(axis=1)
     gdf_calculated_min_time['closest_site_current'] = gdf_calculated_min_time[site_time_orig_list].idxmin(axis=1)
     return gdf_calculated_min_time
