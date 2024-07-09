@@ -969,6 +969,8 @@ else :
 st.markdown("#### The summarised results for the configurations are shown "+
             "here, looking at the 5 single sites, and the 10 options with "+
             "2 additional sites ")
+st.markdown("Expand or save to view in full ")
+            
 st.write(summary_table_df)
 #st.table(df_results.style.format({"E": "{:.0f}"}))
 # struggling to remove decimals from display of results table
@@ -977,4 +979,3 @@ st.write(summary_table_df)
 
 end_full = time.time()
 # st.write('Total time to run '+str(round(end_full - start_full,1)) + ' seconds')
-
