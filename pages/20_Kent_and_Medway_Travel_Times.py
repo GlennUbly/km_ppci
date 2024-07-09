@@ -380,6 +380,10 @@ def get_dict_sitecode_sitename(sites_df):
     dic = dict(zip(sites_df.Provider_Site_Code, sites_df.Provider_Site_Name))
     return dic
 
+# Function to get dictionary mapping site codes to site postcodes
+def get_dict_sitecode_postcode(sites_df):
+    dic = dict(zip(sites_df.Provider_Site_Code, sites_df.Postcode_Trim))
+    return dic
 
 # Function to get dictionary mapping site names to site codes
 def get_dict_sitename_sitecode(sites_df):
