@@ -764,7 +764,7 @@ site_code_list = [dict_sitename_sitecode[site] for site in selected_site_pair]
 #
 #############################################################################
 
-st.write('Activity table to go here')
+st.write('PLACEHOLDER for activity table to go here TO BE UPDATED')
 
 #############################################################################
 #
