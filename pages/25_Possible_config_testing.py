@@ -734,11 +734,7 @@ summary_table_df = get_summary_table(km_prov_gdf, km_all_journeys_df, sites_orig
 st.title("Travel times for the current configuration, and comparisons with "+
          "alternatives")
 
-#############################################################################
-#
-#          Create kde plots for new configurations selected by the user
-#
-#############################################################################
+
 
 st.markdown("#### We plot the travel times for Kent and Medway "+
             "patients based on the historic activity")
@@ -761,6 +757,20 @@ with st.sidebar :
 
 # Convert selected names back to codes
 site_code_list = [dict_sitename_sitecode[site] for site in selected_site_pair]
+
+#############################################################################
+#
+#                             Activity table
+#
+#############################################################################
+
+st.write('Activity table to go here')
+
+#############################################################################
+#
+#          Create kde plots for new configurations selected by the user
+#
+#############################################################################
 
 # Plot kde plot for this selected set of sites
 f = kde_plot(km_all_journeys_df, sites_orig, site_code_list, nat_median)
