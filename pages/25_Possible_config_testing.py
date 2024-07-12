@@ -393,7 +393,7 @@ def get_dict_sitename_sitecode(sites_df):
 
 # Function to get dictionary mapping site postcodes to site codes
 def get_dict_postcode_sitecode(sites_df):
-    dic = dict(zip(sites_df.Postcode_Trim, sites_df.Der_Provider_Site_Code))
+    dic = dict(zip(sites_df.Postcode_Trim, sites_df.Provider_Site_Code))
     return dic
 
 # Function to return a new LSOA GDF with calculated minimum times for a new site list and threshold comparison
@@ -558,6 +558,58 @@ def get_km_all_journeys_df(km_actuals_time_dist_df, km_lsoa_gdf):
                                                  'lsoa11nm'])
     return km_all_journeys_df
 
+# Function to return a table of activity, showing 22/23 actuals, and for these actuals the closest sites under the 
+# present configuration, and the possible activity if we add new sites
+# Input all_journeys_df is the actuals
+def get_freq_table_actuals(all_journeys_df, sites_orig, sites_new, km_prov_gdf, threshold):
+    sites_to_include = sites_orig + sites_new
+    dict_sitecode_postcode = get_dict_sitecode_postcode(km_prov_gdf)
+    dict_postcode_sitecode = get_dict_postcode_sitecode(km_prov_gdf)
+    total_count = len(all_journeys_df)
+    postcodes_to_include = [dict_sitecode_postcode[code] for code in sites_orig]
+    # series for actuals
+    val_count_actuals = all_journeys_df['Provider_Site_Postcode'][all_journeys_df['Provider_Site_Postcode'].isin(postcodes_to_include)].value_counts()
+    val_count_actuals = val_count_actuals.to_frame().reset_index()
+    val_count_actuals.columns = ['Provider_code', 'Actual_activity_count']
+    val_count_actuals['Provider_code'] = val_count_actuals['Provider_code'].apply(lambda code: dict_postcode_sitecode[code])
+    val_count_actuals.set_index('Provider_code', inplace=True)
+    
+    # Get new minimum times for the selected sites
+    new_min_times_gdf = get_new_min_times_gdf(km_lsoa_gdf, sites_orig, sites_new, threshold)
+    
+    # series for closest with current sites
+    km_times_all_lsoa_df = km_actuals_time_dist_df['Patient_LSOA'].to_frame().merge(new_min_times_gdf,
+                                              how='left',
+                                              left_on='Patient_LSOA',
+                                              right_on='lsoa11cd'                                              
+                                             )
+    
+    val_count_current_sites = km_times_all_lsoa_df['closest_site_current'].value_counts()
+    val_count_current_sites = val_count_current_sites.to_frame().reset_index()
+    val_count_current_sites.columns = ['Provider_code', 'Closest_site_current_on_22/23_activity']
+    val_count_current_sites['Provider_code'] = val_count_current_sites['Provider_code'].apply(lambda code: code[5:].upper())
+    val_count_current_sites.set_index('Provider_code', inplace=True)
+    
+    # series for closest with new sites
+    val_count_new_sites = km_times_all_lsoa_df['site_of_new_time'].value_counts()
+    val_count_new_sites = val_count_new_sites.to_frame().reset_index()
+    val_count_new_sites.columns = ['Provider_code', 'Closest_site_with_new_options']
+    val_count_new_sites['Provider_code'] = val_count_new_sites['Provider_code'].apply(lambda code: code[5:].upper())
+    val_count_new_sites.set_index('Provider_code', inplace=True)
+    
+    # Combine these 3 dataframes, use merge
+    df = val_count_actuals.merge(val_count_current_sites, how='outer', left_index=True, right_index=True)
+    df = df.merge(val_count_new_sites, how='outer', left_index=True, right_index=True)
+    
+    # Add value for other sites
+    df.loc['Other'] = total_count - df.sum() 
+    # Replace NaN with 0 and convert to integers
+    df = df.fillna(0).astype(int)
+    # Order decreasing by new activity values
+    df.sort_values(by='Closest_site_current_on_22/23_activity', ascending=False, inplace=True)
+    return df
+
+
 
 # Function to return metrics for a given list of candidate sites
 # Input is the DataFrame km_all_journeys_df and a list of potential sites and a threshold value (national median time)
@@ -696,6 +748,7 @@ def get_summary_table(km_prov_gdf, km_all_journeys_df, sites_orig, nat_median):
 #icb_gdf = get_icb_gdf(filename_geo, filename_pop)
 filename_activity = 'output_national_ppci_2223.csv'
 filename_routino = 'actuals_from_to_routino.csv'
+filename_routino_km = 'results_km_all_sites.csv'
 #activity_time_dist_df = get_activity_time_dist_df(filename_activity, filename_routino)
 #icb_time_df = get_national_activity_icb(filename_activity, filename_routino)
 #prov_gdf_filename = 'provider_locations.csv'
@@ -714,7 +767,7 @@ dict_sitecode_sitename = get_dict_sitecode_sitename(km_prov_gdf)
 dict_sitename_sitecode = get_dict_sitename_sitecode(km_prov_gdf)
 km_lsoa_filename = 'km_lsoa_shapefile.csv'
 km_lsoa_gdf = get_lsoa_gdf(km_lsoa_filename)
-km_actuals_time_dist_df = get_km_actuals_time_dist_df(filename_activity, filename_routino)
+km_actuals_time_dist_df = get_km_actuals_time_dist_df(filename_activity, filename_routino_km)
 km_median = km_actuals_time_dist_df['time_min'].median()
 km_all_journeys_df = get_km_all_journeys_df(km_actuals_time_dist_df, km_lsoa_gdf)
 km_site_list = list(km_prov_gdf['Provider_Site_Code'])
@@ -722,6 +775,8 @@ km_site_name_list = list(km_prov_gdf['Provider_Site_Name'])
 for site in [dict_sitecode_sitename[site] for site in sites_orig] :
     km_site_name_list.remove(site)
 summary_table_df = get_summary_table(km_prov_gdf, km_all_journeys_df, sites_orig, nat_median)
+#new_min_times_gdf = get_new_min_times_gdf(km_lsoa_gdf, sites_orig, sites_new, threshold)
+# get_freq_table_actuals(km_actuals_time_dist_df, sites_orig, ['RWF03','RN707'], km_prov_gdf, nat_median)
 
 #############################################################################
 #############################################################################
@@ -734,7 +789,11 @@ summary_table_df = get_summary_table(km_prov_gdf, km_all_journeys_df, sites_orig
 st.title("Travel times for the current configuration, and comparisons with "+
          "alternatives")
 
-
+#############################################################################
+#
+#          Create kde plots for new configurations selected by the user
+#
+#############################################################################
 
 st.markdown("#### We plot the travel times for Kent and Medway "+
             "patients based on the historic activity")
@@ -760,17 +819,13 @@ site_code_list = [dict_sitename_sitecode[site] for site in selected_site_pair]
 
 #############################################################################
 #
-#                             Activity table
+#                 Create activity tables for new travel times 
 #
 #############################################################################
 
-st.write('PLACEHOLDER for activity table to go here TO BE UPDATED')
-
-#############################################################################
-#
-#          Create kde plots for new configurations selected by the user
-#
-#############################################################################
+st.markdown('### text here with description of table')
+activity_table = get_freq_table_actuals(km_actuals_time_dist_df, sites_orig, site_code_list, km_prov_gdf, nat_median)
+st.dataframe(activity_table)
 
 # Plot kde plot for this selected set of sites
 f = kde_plot(km_all_journeys_df, sites_orig, site_code_list, nat_median)
