@@ -823,10 +823,35 @@ site_code_list = [dict_sitename_sitecode[site] for site in selected_site_pair]
 #
 #############################################################################
 
-st.markdown('### text here with description of table')
+st.markdown('#### Activity table')
 activity_table = get_freq_table_actuals(km_actuals_time_dist_df, sites_orig, site_code_list, km_prov_gdf, nat_median)
 st.dataframe(activity_table)
 
+if len(site_code_list) > 0:
+    st.write('With this configuration, we could see: ')
+    for code in site_code_list:
+        activity_text = str(activity_table.loc[code]['Closest_site_with_new_options'] )
+        st.markdown(f'* {activity_text} spells at {dict_sitecode_sitename[code]}')
+    london_activity_new = activity_table.loc['RJZ01']['Closest_site_with_new_options'] + activity_table.loc['RJ122']['Closest_site_with_new_options']
+    london_activity_actual = activity_table.loc['RJZ01']['Actual_activity_count'] + activity_table.loc['RJ122']['Actual_activity_count']
+    london_reduction = london_activity_actual - london_activity_new
+    st.markdown(f'* A reduction of {london_reduction} spells at London providers')
+    rvv01_reduction = activity_table.loc['RVV01']['Actual_activity_count'] - activity_table.loc['RVV01']['Closest_site_with_new_options']
+    rvv01_name = dict_sitecode_sitename['RVV01']
+else:
+    st.write('With no additional sites, but with patients travelling to the closest available site, we could see: ')
+    london_activity_new = activity_table.loc['RJZ01']['Closest_site_with_new_options'] + activity_table.loc['RJ122']['Closest_site_with_new_options']
+    london_activity_actual = activity_table.loc['RJZ01']['Actual_activity_count'] + activity_table.loc['RJ122']['Actual_activity_count']
+    london_reduction = london_activity_actual - london_activity_new
+    st.markdown(f'* A reduction of {london_reduction} spells at London providers')
+    rvv01_reduction = activity_table.loc['RVV01']['Actual_activity_count'] - activity_table.loc['RVV01']['Closest_site_with_new_options']
+    rvv01_name = dict_sitecode_sitename['RVV01']
+if rvv01_reduction > 0:
+    st.markdown(f'* A reduction of {rvv01_reduction} spells at {rvv01_name}')
+elif rvv01_reduction < 0:
+    st.markdown(f'* An increase of {-rvv01_reduction} spells at {rvv01_name}')
+else:
+    st.markdown(f'* No change in spells at {rvv01_name}')
 # Plot kde plot for this selected set of sites
 f = kde_plot(km_all_journeys_df, sites_orig, site_code_list, nat_median)
 fig, ax = f
