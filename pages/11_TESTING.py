@@ -69,21 +69,21 @@ filename_pop = 'ICB_population.csv'
 #icb_gdf = get_icb_gdf(filename_geo, filename_pop)
 
 # TESTING
-icb_gdf = gpd.read_file(filename_geo)
+#icb_gdf = gpd.read_file(filename_geo)
 st.write('Geopandas version ')
 gpd.__version__
 
 st.write('Fiona version')
 fiona.__version__
 
-st.write(icb_gdf.head())
+#st.write(icb_gdf.head())
 
-@st.cache_data()
-def get_data():
-    df_raw = gpd.read_file(filename_geo)
-    df_raw = df_raw[df_raw['ICB22CD'] != 0]
-    return df_raw
-st.write(get_data())
+#@st.cache_data()
+#def get_data():
+#    df_raw = gpd.read_file(filename_geo)
+#    df_raw = df_raw[df_raw['ICB22CD'] != 0]
+#    return df_raw
+#st.write(get_data())
 # Works here, not in Streamlit
 
 
