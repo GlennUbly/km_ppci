@@ -707,12 +707,12 @@ filename_pop = 'ICB_population.csv'
 # TRY THIS:
 #icb_gdf = gpd.read_file(filename_geo, crs='EPSG:27700')
 #icb_gdf = gpd.read_file(filename_geo)
-@st.cache_data()
-def get_data():
-    df_raw = gpd.read_file(filename_geo)
-    df_raw = df_raw[df_raw['ICB22CD'] != 0]
-    return df_raw
-st.write(get_data())
+#@st.cache_data()
+#def get_data():
+#    df_raw = gpd.read_file(filename_geo)
+#    df_raw = df_raw[df_raw['ICB22CD'] != 0]
+#    return df_raw
+#st.write(get_data())
 
 
 
