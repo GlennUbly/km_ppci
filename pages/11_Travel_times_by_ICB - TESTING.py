@@ -712,7 +712,7 @@ def get_data():
     df_raw = gpd.read_file(filename_geo)
     df_raw = df_raw[df_raw['ICB22CD'] != 0]
     return df_raw
-#st.write(get_data())
+st.write(get_data())
 
 
 
