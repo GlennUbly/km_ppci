@@ -20,6 +20,7 @@ import numpy as np
 import itertools
 import streamlit as st
 import time
+import fiona
 # for time test
 start_full = time.time()
 
