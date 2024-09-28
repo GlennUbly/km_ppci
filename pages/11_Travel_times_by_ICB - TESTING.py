@@ -696,7 +696,7 @@ def get_summary_table(km_prov_gdf, km_all_journeys_df, sites_orig, nat_median):
 
 filename_geo = 'zip://./ICB_JUL_2022_EN_BGC_V3_-1460063858159520993.zip'
 filename_pop = 'ICB_population.csv'
-#icb_gdf = get_icb_gdf(filename_geo, filename_pop)
+icb_gdf = get_icb_gdf(filename_geo, filename_pop)
 #filename_activity = 'output_national_ppci_2223.csv'
 #filename_routino = 'actuals_from_to_routino.csv'
 #activity_time_dist_df = get_activity_time_dist_df(filename_activity, filename_routino)
