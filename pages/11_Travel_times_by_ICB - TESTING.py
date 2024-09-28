@@ -23,6 +23,9 @@ import time
 # for time test
 start_full = time.time()
 
+# CHECKING geopandas version:
+gpd.__version__
+
 ##############################################################################
 #
 #              Functions for processing national activity data
