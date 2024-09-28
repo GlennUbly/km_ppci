@@ -66,7 +66,7 @@ def get_icb_gdf(filename_geo, filename_pop):
 
 filename_geo = 'zip://./ICB_JUL_2022_EN_BGC_V3_-1460063858159520993.zip'
 filename_pop = 'ICB_population.csv'
-#icb_gdf = get_icb_gdf(filename_geo, filename_pop)
+icb_gdf = get_icb_gdf(filename_geo, filename_pop)
 
 # TESTING
 #icb_gdf = gpd.read_file(filename_geo)
