@@ -705,7 +705,8 @@ filename_pop = 'ICB_population.csv'
 
 
 # TRY THIS:
-icb_gdf = gpd.read_file(filename_geo, crs='EPSG:27700')
+#icb_gdf = gpd.read_file(filename_geo, crs='EPSG:27700')
+icb_gdf = gpd.read_file(filename_geo)
 
 #filename_activity = 'output_national_ppci_2223.csv'
 #filename_routino = 'actuals_from_to_routino.csv'
